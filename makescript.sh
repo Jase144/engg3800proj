@@ -7,3 +7,4 @@ PATH=/home/jesse/st/stm32cubeide_1.19.0/plugins/com.st.stm32cube.ide.mcu.externa
 make all -C ./Debug
 
 ./flash.sh
+./flash.sh

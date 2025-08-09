@@ -10,7 +10,7 @@ SPEED=100 #4000
 DBG_FLASH_CLI=JLinkGDBServer
 NRM_FLASH_CLI=JLinkExe
 DBG_FLASH_OPTIONS="-device $DEVICE -if $TI -speed $SPEED -singlerun -select USB -port 2331"
-NRM_FLASH_OPTIONS="-device $DEVICE -If $TI -autoconnect $TRUE -CommandFile $COMMANDFILEPATH -speed 4000"
+NRM_FLASH_OPTIONS="-device $DEVICE -If $TI -autoconnect $TRUE -CommandFile $COMMANDFILEPATH -speed 400"
 EXTRA_OPTIONS=""
 
 extraOptions=$FALSE

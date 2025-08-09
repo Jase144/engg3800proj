@@ -1,5 +1,0 @@
-../Core/Src/periph_64ledmatrix.c:63:6:reg_64ledmatrix_init_external	1
-../Core/Src/periph_64ledmatrix.c:75:6:reg_64ledmatrix_initgpio_internal	1
-../Core/Src/periph_64ledmatrix.c:97:6:reg_64ledmatrix_inittim2_internal	6
-../Core/Src/periph_64ledmatrix.c:145:6:ledmatrix64_lib_error_handler	1
-../Core/Src/periph_64ledmatrix.c:156:6:reg_64ledmatrix_senddata	1

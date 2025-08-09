@@ -1,5 +1,6 @@
 // led matrix src code
 
+#include "stm32l4xx.h"
 #include "stm32l4xx_hal.h"
 #include "periph_64ledmatrix.h"
 #include "stm32l4xx_hal_rcc.h"
@@ -66,9 +67,12 @@ void reg_64ledmatrix_init_external(void) {
     // GPIO config - each instruction does both clear and set the pins
     reg_64ledmatrix_initgpio_internal();
 
-    reg_64ledmatrix_inittim2_internal();
 
     reg_tim2dma_initdma_external();
+
+
+    DMA1_Channel2->CCR |= (0x01 << DMA_CCR_EN_Pos);
+    reg_64ledmatrix_inittim2_internal();
 }
 
 
@@ -95,10 +99,10 @@ void reg_64ledmatrix_initgpio_internal(void) {
 }
 
 void reg_64ledmatrix_inittim2_internal(void) {
+    TIM_HandleTypeDef tim2Struct;
     TIM_ClockConfigTypeDef sClockSourceConfig = {0};
     TIM_MasterConfigTypeDef sMasterConfig = {0};
     TIM_OC_InitTypeDef sConfigOC = {0};
-    TIM_HandleTypeDef tim2Struct;
     /* USER CODE BEGIN TIM2_Init 1 */
 
     /* USER CODE END TIM2_Init 1 */

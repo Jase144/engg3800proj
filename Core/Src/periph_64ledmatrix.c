@@ -3,6 +3,7 @@
 #include "stm32l4xx_hal.h"
 #include "periph_64ledmatrix.h"
 #include "stm32l4xx_hal_rcc.h"
+#include "intern_tim2dma.h"
 
 /* Configs  */
 // Pins used
@@ -67,6 +68,7 @@ void reg_64ledmatrix_init_external(void) {
 
     reg_64ledmatrix_inittim2_internal();
 
+    reg_tim2dma_initdma_external();
 }
 
 

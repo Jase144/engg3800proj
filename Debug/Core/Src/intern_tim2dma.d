@@ -1,4 +1,4 @@
-Core/Src/periph_64ledmatrix.o: ../Core/Src/periph_64ledmatrix.c \
+Core/Src/intern_tim2dma.o: ../Core/Src/intern_tim2dma.c \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h \
  ../Core/Inc/stm32l4xx_hal_conf.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_rcc.h \
@@ -25,7 +25,7 @@ Core/Src/periph_64ledmatrix.o: ../Core/Src/periph_64ledmatrix.c \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr_ex.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_tim.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_tim_ex.h \
- ../Core/Inc/periph_64ledmatrix.h ../Core/Inc/intern_tim2dma.h
+ ../Core/Inc/intern_tim2dma.h
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h:
 ../Core/Inc/stm32l4xx_hal_conf.h:
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_rcc.h:
@@ -52,5 +52,4 @@ Core/Src/periph_64ledmatrix.o: ../Core/Src/periph_64ledmatrix.c \
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr_ex.h:
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_tim.h:
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_tim_ex.h:
-../Core/Inc/periph_64ledmatrix.h:
 ../Core/Inc/intern_tim2dma.h:

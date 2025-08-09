@@ -7,6 +7,7 @@
 C_SRCS += \
 ../Core/Src/intern_dma.c \
 ../Core/Src/intern_sysclock.c \
+../Core/Src/intern_tim2dma.c \
 ../Core/Src/main.c \
 ../Core/Src/periph_64ledmatrix.c \
 ../Core/Src/stm32l4xx_hal_msp.c \
@@ -18,6 +19,7 @@ C_SRCS += \
 OBJS += \
 ./Core/Src/intern_dma.o \
 ./Core/Src/intern_sysclock.o \
+./Core/Src/intern_tim2dma.o \
 ./Core/Src/main.o \
 ./Core/Src/periph_64ledmatrix.o \
 ./Core/Src/stm32l4xx_hal_msp.o \
@@ -29,6 +31,7 @@ OBJS += \
 C_DEPS += \
 ./Core/Src/intern_dma.d \
 ./Core/Src/intern_sysclock.d \
+./Core/Src/intern_tim2dma.d \
 ./Core/Src/main.d \
 ./Core/Src/periph_64ledmatrix.d \
 ./Core/Src/stm32l4xx_hal_msp.d \
@@ -45,7 +48,7 @@ Core/Src/%.o Core/Src/%.su Core/Src/%.cyclo: ../Core/Src/%.c Core/Src/subdir.mk
 clean: clean-Core-2f-Src
 
 clean-Core-2f-Src:
-	-$(RM) ./Core/Src/intern_dma.cyclo ./Core/Src/intern_dma.d ./Core/Src/intern_dma.o ./Core/Src/intern_dma.su ./Core/Src/intern_sysclock.cyclo ./Core/Src/intern_sysclock.d ./Core/Src/intern_sysclock.o ./Core/Src/intern_sysclock.su ./Core/Src/main.cyclo ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/periph_64ledmatrix.cyclo ./Core/Src/periph_64ledmatrix.d ./Core/Src/periph_64ledmatrix.o ./Core/Src/periph_64ledmatrix.su ./Core/Src/stm32l4xx_hal_msp.cyclo ./Core/Src/stm32l4xx_hal_msp.d ./Core/Src/stm32l4xx_hal_msp.o ./Core/Src/stm32l4xx_hal_msp.su ./Core/Src/stm32l4xx_it.cyclo ./Core/Src/stm32l4xx_it.d ./Core/Src/stm32l4xx_it.o ./Core/Src/stm32l4xx_it.su ./Core/Src/syscalls.cyclo ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.cyclo ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32l4xx.cyclo ./Core/Src/system_stm32l4xx.d ./Core/Src/system_stm32l4xx.o ./Core/Src/system_stm32l4xx.su
+	-$(RM) ./Core/Src/intern_dma.cyclo ./Core/Src/intern_dma.d ./Core/Src/intern_dma.o ./Core/Src/intern_dma.su ./Core/Src/intern_sysclock.cyclo ./Core/Src/intern_sysclock.d ./Core/Src/intern_sysclock.o ./Core/Src/intern_sysclock.su ./Core/Src/intern_tim2dma.cyclo ./Core/Src/intern_tim2dma.d ./Core/Src/intern_tim2dma.o ./Core/Src/intern_tim2dma.su ./Core/Src/main.cyclo ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/periph_64ledmatrix.cyclo ./Core/Src/periph_64ledmatrix.d ./Core/Src/periph_64ledmatrix.o ./Core/Src/periph_64ledmatrix.su ./Core/Src/stm32l4xx_hal_msp.cyclo ./Core/Src/stm32l4xx_hal_msp.d ./Core/Src/stm32l4xx_hal_msp.o ./Core/Src/stm32l4xx_hal_msp.su ./Core/Src/stm32l4xx_it.cyclo ./Core/Src/stm32l4xx_it.d ./Core/Src/stm32l4xx_it.o ./Core/Src/stm32l4xx_it.su ./Core/Src/syscalls.cyclo ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.cyclo ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32l4xx.cyclo ./Core/Src/system_stm32l4xx.d ./Core/Src/system_stm32l4xx.o ./Core/Src/system_stm32l4xx.su
 
 .PHONY: clean-Core-2f-Src
 

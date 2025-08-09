@@ -124,7 +124,7 @@ int main(void)
   /* USER CODE END Init */
 
   /* Configure the system clock */
-  SystemClock_Config();
+  opSystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
 

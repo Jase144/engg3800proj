@@ -1,0 +1,2 @@
+../Core/Src/intern_sysclock.c:10:6:opSystemClock_Config	4
+../Core/Src/intern_sysclock.c:49:6:sysclock_lib_error_handler	1

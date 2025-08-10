@@ -3,6 +3,7 @@
 #include "stm32l4xx.h"
 #include "stm32l4xx_hal.h"
 #include "periph_64ledmatrix.h"
+#include "stm32l4xx_hal_dma.h"
 #include "stm32l4xx_hal_rcc.h"
 #include "intern_tim2dma.h"
 
@@ -67,11 +68,9 @@ void reg_64ledmatrix_init_external(void) {
     // GPIO config - each instruction does both clear and set the pins
     reg_64ledmatrix_initgpio_internal();
 
+    __HAL_RCC_TIM2_CLK_ENABLE();
 
-    reg_tim2dma_initdma_external();
 
-
-    DMA1_Channel2->CCR |= (0x01 << DMA_CCR_EN_Pos);
     reg_64ledmatrix_inittim2_internal();
 }
 
@@ -98,7 +97,9 @@ void reg_64ledmatrix_initgpio_internal(void) {
 
 }
 
+uint32_t ccr1_values[4] = {21, 21, 21, 14};
 void reg_64ledmatrix_inittim2_internal(void) {
+    DMA_HandleTypeDef hdma_tim2_up;
     TIM_HandleTypeDef tim2Struct;
     TIM_ClockConfigTypeDef sClockSourceConfig = {0};
     TIM_MasterConfigTypeDef sMasterConfig = {0};
@@ -106,17 +107,22 @@ void reg_64ledmatrix_inittim2_internal(void) {
     /* USER CODE BEGIN TIM2_Init 1 */
 
     /* USER CODE END TIM2_Init 1 */
+
+    __HAL_RCC_DMA1_CLK_ENABLE();
+
     tim2Struct.Instance = TIM2;
     tim2Struct.Init.Prescaler = 0;
     tim2Struct.Init.CounterMode = TIM_COUNTERMODE_UP;
     tim2Struct.Init.Period = 21;
     tim2Struct.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
     tim2Struct.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+    /*
     if (HAL_TIM_Base_Init(&tim2Struct) != HAL_OK)
     {
       ledmatrix64_lib_error_handler();
-    }
+    }*/
     sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+    /*
     if (HAL_TIM_ConfigClockSource(&tim2Struct, &sClockSourceConfig) != HAL_OK)
     {
       ledmatrix64_lib_error_handler();
@@ -124,25 +130,98 @@ void reg_64ledmatrix_inittim2_internal(void) {
     if (HAL_TIM_PWM_Init(&tim2Struct) != HAL_OK)
     {
       ledmatrix64_lib_error_handler();
-    }
+    }*/
     sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
     sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+    /*
     if (HAL_TIMEx_MasterConfigSynchronization(&tim2Struct, &sMasterConfig) != HAL_OK)
     {
       ledmatrix64_lib_error_handler();
-    }
+    }*/
     sConfigOC.OCMode = TIM_OCMODE_PWM1;
     sConfigOC.Pulse = 14;
     sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
     sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+    /*
     if (HAL_TIM_PWM_ConfigChannel(&tim2Struct, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
     {
       ledmatrix64_lib_error_handler();
-    }
-    HAL_TIM_MspPostInit(&tim2Struct);
+    }*/
+
     /* USER CODE BEGIN TIM2_Init 2 */
-    HAL_TIM_PWM_Start(&tim2Struct, TIM_CHANNEL_1);
+    //reg_tim2dma_initdma_external();
+
+
+    //DMA1_Channel2->CCR |= (0x01 << DMA_CCR_EN_Pos);
+
+    //TIM2->CR2 |= (1 << TIM_CR2_CCDS_Pos);
+    //TIM2->DCR |= (0x02 < TIM_DCR_DBL_Pos) | (0xE < TIM_DCR_DBA_Pos);
+    //TIM2->DIER |= (1 << TIM_DIER_UDE_Pos);
     /* USER CODE END TIM2_Init 2 */
+    /*
+    __HAL_LINKDMA(&tim2Struct, hdma[TIM_DMA_ID_UPDATE], hdma_tim2_up);
+
+     __HAL_RCC_DMA1_CLK_ENABLE();
+
+    hdma_tim2_up.Instance = DMA1_Channel5;  // Example channel
+    hdma_tim2_up.Init.Direction = DMA_MEMORY_TO_PERIPH;
+    hdma_tim2_up.Init.PeriphInc = DMA_PINC_DISABLE;
+    hdma_tim2_up.Init.MemInc = DMA_MINC_ENABLE;
+    hdma_tim2_up.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
+    hdma_tim2_up.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
+    hdma_tim2_up.Init.Mode = DMA_NORMAL;
+    hdma_tim2_up.Init.Priority = DMA_PRIORITY_LOW;
+    HAL_DMA_Init(&hdma_tim2_up);
+
+    // DMAMUX: set request ID 25 for TIM2_UP
+    DMA1_CSELR->CSELR = (DMA1_CSELR->CSELR & ~(0xF << (4 * (4)))) | (25 << (4 * (4)));
+    HAL_DMA_Start(&hdma_tim2_up, (uint32_t)ccr1_values, (uint32_t)&TIM2->CCR1, 4);
+    HAL_TIM_MspPostInit(&tim2Struct);
+    HAL_TIM_PWM_Start(&tim2Struct, TIM_CHANNEL_1);
+    __HAL_TIM_ENABLE_DMA(&tim2Struct, TIM_DMA_UPDATE);
+*/
+
+
+
+//__HAL_TIM_ENABLE_DMA(&tim2Struct, TIM_DMA_CC1);
+
+//__HAL_LINKDMA(&tim2Struct, hdma[TIM_DMA_ID_UPDATE], hdma_tim2_up);
+
+// DMA config
+hdma_tim2_up.Instance = DMA1_Channel2;
+hdma_tim2_up.Init.Direction = DMA_MEMORY_TO_PERIPH;
+hdma_tim2_up.Init.PeriphInc = DMA_PINC_DISABLE;
+hdma_tim2_up.Init.MemInc = DMA_MINC_ENABLE;
+hdma_tim2_up.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
+hdma_tim2_up.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
+hdma_tim2_up.Init.Mode = DMA_CIRCULAR; // stop after last
+hdma_tim2_up.Init.Priority = DMA_PRIORITY_LOW;
+HAL_DMA_Init(&hdma_tim2_up);
+
+// DMAMUX: TIM2_UP request = 25
+DMA1_CSELR->CSELR = (DMA1_CSELR->CSELR & ~(0xF << (4 * 1))) | (57 << (4 * 1));
+
+// Start DMA
+
+// Start PWM + DMA
+__HAL_LINKDMA(&tim2Struct, hdma[TIM_DMA_ID_CC1], hdma_tim2_up);
+
+//DMA1_Channel2->CCR |= (0x01 << DMA_CCR_EN_Pos);
+__HAL_TIM_ENABLE_DMA(&tim2Struct, TIM_DMA_UPDATE);
+
+HAL_DMA_Start(&hdma_tim2_up,
+              (uint32_t)ccr1_values,
+              (uint32_t)&TIM2->CCR1,
+              sizeof(ccr1_values) / sizeof(uint16_t));
+//__HAL_TIM_ENABLE_DMA(&tim2Struct, TIM_DMA_UPDATE);
+
+HAL_TIM_Base_Init(&tim2Struct);
+//HAL_TIM_ConfigClockSource(&tim2Struct, &sClockSourceConfig);
+HAL_TIM_PWM_Init(&tim2Struct);
+//HAL_TIMEx_MasterConfigSynchronization(&tim2Struct, &sMasterConfig);
+HAL_TIM_PWM_ConfigChannel(&tim2Struct, &sConfigOC, TIM_CHANNEL_1);
+HAL_TIM_MspPostInit(&tim2Struct);
+HAL_TIM_PWM_Start(&tim2Struct, TIM_CHANNEL_1);
 
 }
 

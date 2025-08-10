@@ -8,7 +8,7 @@ uint8_t arr[195] = {0};
 void reg_tim2dma_initdma_external(void) {
 
     __HAL_RCC_DMA1_CLK_ENABLE();
-    DMA1_Channel2->CCR |= (0x01 << DMA_CCR_DIR_Pos);
+    DMA1_Channel2->CCR &= ~(0x01 << DMA_CCR_DIR_Pos);
     DMA1_Channel2->CCR &= ~(0x03 << DMA_CCR_PSIZE_Pos);
     DMA1_Channel2->CCR &= ~(0x03 << DMA_CCR_MSIZE_Pos);
     DMA1_Channel2->CCR |= (0x01 << DMA_CCR_MINC_Pos);
@@ -26,9 +26,9 @@ void reg_tim2dma_initdma_external(void) {
     arr[193] = 0;
     arr[194] = 21;
     DMA1_Channel2->CMAR = (uint32_t)&arr;
-    DMA1_Channel2->CPAR =(uint32_t)&(TIM2->DMAR);
+    DMA1_Channel2->CPAR =(uint32_t)&(TIM2->CCR1);
     // Set DMAMUX1 Channel 2 request to TIM2 update (request 8)
-
+    DMA1_Channel2->CCR |= DMA_CCR_EN_Pos; // or (1 << DMA_CCR_EN_Pos)
     TIM2->DCR |= (0x02 < TIM_DCR_DBL_Pos) | (0xE < TIM_DCR_DBA_Pos);
     TIM2->DIER |= (1 << TIM_DIER_UDE_Pos);
 

@@ -40,8 +40,8 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-TIM_HandleTypeDef htim2;
-DMA_HandleTypeDef hdma_tim2_up;
+//TIM_HandleTypeDef htim2;
+//DMA_HandleTypeDef hdma_tim2_up;
 
 /* USER CODE BEGIN PV */
 
@@ -134,7 +134,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   //MX_GPIO_Init();
-  //MX_DMA_Init();
+  MX_DMA_Init();
   //MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   reg_64ledmatrix_init_external();
@@ -214,12 +214,13 @@ static void MX_TIM2_Init(void)
   /* USER CODE BEGIN TIM2_Init 1 */
 
   /* USER CODE END TIM2_Init 1 */
-  htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 0;
-  htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 21;
-  htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  //htim2.Instance = TIM2;
+  //htim2.Init.Prescaler = 0;
+  //htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+  //htim2.Init.Period = 21;
+  //htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  //htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+/*
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
   {
     Error_Handler();
@@ -247,10 +248,11 @@ static void MX_TIM2_Init(void)
   {
     Error_Handler();
   }
+  */
   /* USER CODE BEGIN TIM2_Init 2 */
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+  //HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
   /* USER CODE END TIM2_Init 2 */
-  HAL_TIM_MspPostInit(&htim2);
+  //HAL_TIM_MspPostInit(&htim2);
 
 }
 

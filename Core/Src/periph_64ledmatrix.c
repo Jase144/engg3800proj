@@ -1,5 +1,6 @@
 // led matrix src code
 
+#include "stm32l433xx.h"
 #include "stm32l4xx.h"
 #include "stm32l4xx_hal.h"
 #include "periph_64ledmatrix.h"
@@ -97,13 +98,13 @@ void reg_64ledmatrix_initgpio_internal(void) {
 
 }
 
-uint16_t ccr1_values[4] = {21, 21, 21, 21};
+DMA_HandleTypeDef hdma_tim2_up;
+TIM_HandleTypeDef tim2Struct;
+TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+TIM_MasterConfigTypeDef sMasterConfig = {0};
+TIM_OC_InitTypeDef sConfigOC = {0};
+uint32_t ccr1_values[4] = {7, 0, 0, 0};
 void reg_64ledmatrix_inittim2_internal(void) {
-    DMA_HandleTypeDef hdma_tim2_up;
-    TIM_HandleTypeDef tim2Struct;
-    TIM_ClockConfigTypeDef sClockSourceConfig = {0};
-    TIM_MasterConfigTypeDef sMasterConfig = {0};
-    TIM_OC_InitTypeDef sConfigOC = {0};
 
     __HAL_RCC_DMA1_CLK_ENABLE();
     __HAL_RCC_TIM2_CLK_ENABLE();
@@ -113,7 +114,8 @@ void reg_64ledmatrix_inittim2_internal(void) {
     tim2Struct.Init.CounterMode = TIM_COUNTERMODE_UP;
     tim2Struct.Init.Period = 21;
     tim2Struct.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-    tim2Struct.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+    tim2Struct.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+
     HAL_TIM_Base_Init(&tim2Struct);
 
 
@@ -124,7 +126,7 @@ void reg_64ledmatrix_inittim2_internal(void) {
     HAL_TIM_PWM_Init(&tim2Struct);
 
     sConfigOC.OCMode = TIM_OCMODE_PWM1;
-    sConfigOC.Pulse = 14;
+    sConfigOC.Pulse = 0;
     sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
     sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
     HAL_TIM_PWM_ConfigChannel(&tim2Struct, &sConfigOC, TIM_CHANNEL_1);
@@ -148,18 +150,16 @@ hdma_tim2_up.Init.Mode = DMA_CIRCULAR; // stop after last
 hdma_tim2_up.Init.Priority = DMA_PRIORITY_LOW;
 HAL_DMA_Init(&hdma_tim2_up);
 
-DMA1_CSELR->CSELR = (DMA1_CSELR->CSELR & ~(0xF << (4 * 1))) | (25 << (4 * 1));
+DMA1_CSELR->CSELR = (DMA1_CSELR->CSELR & ~(0xF << (4 * 1))) | (4 << (4 * 1));
 
+HAL_TIM_PWM_Start(&tim2Struct, TIM_CHANNEL_1);
 
 HAL_DMA_Start(&hdma_tim2_up,
-              (uint32_t)&(ccr1_values),
+              (uint32_t)&ccr1_values,
               (uint32_t)&(TIM2->CCR1),
-              1);
+              4);
 __HAL_TIM_ENABLE_DMA(&tim2Struct, TIM_DMA_UPDATE);
-__HAL_TIM_DISABLE(&tim2Struct);
-__HAL_TIM_SET_COUNTER(&tim2Struct, 0);
-__HAL_TIM_ENABLE(&tim2Struct);
-HAL_TIM_PWM_Start(&tim2Struct, TIM_CHANNEL_1);
+//TIM2->DIER |= (1 << TIM_DIER_UDE_Pos);
 
 
 }

@@ -3514,71 +3514,70 @@ LOAD /home/jesse/st/stm32cubeide_1.19.0/plugins/com.st.stm32cube.ide.mcu.externa
 .rel.dyn        0x08002d2c        0x0
  .rel.iplt      0x08002d2c        0x0 /home/jesse/st/stm32cubeide_1.19.0/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.linux64_1.0.0.202410170706/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtbegin.o
 
-.data           0x20000000       0x1c load address 0x08002d2c
+.data           0x20000000       0x6c load address 0x08002d2c
                 0x20000000                        . = ALIGN (0x4)
                 0x20000000                        _sdata = .
  *(.data)
  *(.data*)
  .data.ccr1_values
-                0x20000000       0x10 ./Core/Src/periph_64ledmatrix.o
-                0x20000000                ccr1_values
+                0x20000000       0x60 ./Core/Src/periph_64ledmatrix.o
  .data.SystemCoreClock
-                0x20000010        0x4 ./Core/Src/system_stm32l4xx.o
-                0x20000010                SystemCoreClock
+                0x20000060        0x4 ./Core/Src/system_stm32l4xx.o
+                0x20000060                SystemCoreClock
  .data.uwTickPrio
-                0x20000014        0x4 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
-                0x20000014                uwTickPrio
+                0x20000064        0x4 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
+                0x20000064                uwTickPrio
  .data.uwTickFreq
-                0x20000018        0x1 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
-                0x20000018                uwTickFreq
+                0x20000068        0x1 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
+                0x20000068                uwTickFreq
  *(.RamFunc)
  *(.RamFunc*)
-                0x2000001c                        . = ALIGN (0x4)
- *fill*         0x20000019        0x3 
-                0x2000001c                        _edata = .
+                0x2000006c                        . = ALIGN (0x4)
+ *fill*         0x20000069        0x3 
+                0x2000006c                        _edata = .
 
-.igot.plt       0x2000001c        0x0 load address 0x08002d48
- .igot.plt      0x2000001c        0x0 /home/jesse/st/stm32cubeide_1.19.0/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.linux64_1.0.0.202410170706/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtbegin.o
-                0x2000001c                        . = ALIGN (0x4)
+.igot.plt       0x2000006c        0x0 load address 0x08002d98
+ .igot.plt      0x2000006c        0x0 /home/jesse/st/stm32cubeide_1.19.0/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.linux64_1.0.0.202410170706/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+                0x2000006c                        . = ALIGN (0x4)
 
-.bss            0x2000001c       0xec load address 0x08002d48
-                0x2000001c                        _sbss = .
-                0x2000001c                        __bss_start__ = _sbss
+.bss            0x2000006c       0xec load address 0x08002d98
+                0x2000006c                        _sbss = .
+                0x2000006c                        __bss_start__ = _sbss
  *(.bss)
- .bss           0x2000001c       0x1c /home/jesse/st/stm32cubeide_1.19.0/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.linux64_1.0.0.202410170706/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+ .bss           0x2000006c       0x1c /home/jesse/st/stm32cubeide_1.19.0/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.linux64_1.0.0.202410170706/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtbegin.o
  *(.bss*)
  .bss.hdma_tim2_up
-                0x20000038       0x48 ./Core/Src/periph_64ledmatrix.o
-                0x20000038                hdma_tim2_up
+                0x20000088       0x48 ./Core/Src/periph_64ledmatrix.o
+                0x20000088                hdma_tim2_up
  .bss.tim2Struct
-                0x20000080       0x4c ./Core/Src/periph_64ledmatrix.o
-                0x20000080                tim2Struct
+                0x200000d0       0x4c ./Core/Src/periph_64ledmatrix.o
+                0x200000d0                tim2Struct
  .bss.sClockSourceConfig
-                0x200000cc       0x10 ./Core/Src/periph_64ledmatrix.o
-                0x200000cc                sClockSourceConfig
+                0x2000011c       0x10 ./Core/Src/periph_64ledmatrix.o
+                0x2000011c                sClockSourceConfig
  .bss.sMasterConfig
-                0x200000dc        0xc ./Core/Src/periph_64ledmatrix.o
-                0x200000dc                sMasterConfig
+                0x2000012c        0xc ./Core/Src/periph_64ledmatrix.o
+                0x2000012c                sMasterConfig
  .bss.sConfigOC
-                0x200000e8       0x1c ./Core/Src/periph_64ledmatrix.o
-                0x200000e8                sConfigOC
- .bss.uwTick    0x20000104        0x4 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
-                0x20000104                uwTick
+                0x20000138       0x1c ./Core/Src/periph_64ledmatrix.o
+                0x20000138                sConfigOC
+ .bss.uwTick    0x20000154        0x4 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
+                0x20000154                uwTick
  *(COMMON)
-                0x20000108                        . = ALIGN (0x4)
-                0x20000108                        _ebss = .
-                0x20000108                        __bss_end__ = _ebss
+                0x20000158                        . = ALIGN (0x4)
+                0x20000158                        _ebss = .
+                0x20000158                        __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x20000108      0x600 load address 0x08002d48
-                0x20000108                        . = ALIGN (0x8)
+                0x20000158      0x600 load address 0x08002d98
+                0x20000158                        . = ALIGN (0x8)
                 [!provide]                        PROVIDE (end = .)
-                0x20000108                        PROVIDE (_end = .)
-                0x20000308                        . = (. + _Min_Heap_Size)
- *fill*         0x20000108      0x200 
-                0x20000708                        . = (. + _Min_Stack_Size)
- *fill*         0x20000308      0x400 
-                0x20000708                        . = ALIGN (0x8)
+                0x20000158                        PROVIDE (_end = .)
+                0x20000358                        . = (. + _Min_Heap_Size)
+ *fill*         0x20000158      0x200 
+                0x20000758                        . = (. + _Min_Stack_Size)
+ *fill*         0x20000358      0x400 
+                0x20000758                        . = ALIGN (0x8)
 
 /DISCARD/
  libc.a(*)
@@ -3634,39 +3633,39 @@ LOAD /home/jesse/st/stm32cubeide_1.19.0/plugins/com.st.stm32cube.ide.mcu.externa
 LOAD /home/jesse/st/stm32cubeide_1.19.0/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.linux64_1.0.0.202410170706/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a
 LOAD /home/jesse/st/stm32cubeide_1.19.0/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.linux64_1.0.0.202410170706/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/libgcc.a
 
-.debug_info     0x00000000     0xa8c7
+.debug_info     0x00000000     0xa8ca
  .debug_info    0x00000000      0x2b2 ./Core/Src/intern_sysclock.o
  .debug_info    0x000002b2      0x8a1 ./Core/Src/main.o
- .debug_info    0x00000b53      0xcca ./Core/Src/periph_64ledmatrix.o
- .debug_info    0x0000181d      0xb25 ./Core/Src/stm32l4xx_hal_msp.o
- .debug_info    0x00002342      0x36a ./Core/Src/stm32l4xx_it.o
- .debug_info    0x000026ac      0x5bf ./Core/Src/system_stm32l4xx.o
- .debug_info    0x00002c6b       0x30 ./Core/Startup/startup_stm32l433cctx.o
- .debug_info    0x00002c9b      0xa9f ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
- .debug_info    0x0000373a      0xd27 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_cortex.o
- .debug_info    0x00004461      0x6f4 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_dma.o
- .debug_info    0x00004b55      0x757 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_gpio.o
- .debug_info    0x000052ac      0x920 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr_ex.o
- .debug_info    0x00005bcc      0xbc3 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc.o
- .debug_info    0x0000678f     0x2a9a ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_tim.o
- .debug_info    0x00009229     0x169e ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_tim_ex.o
+ .debug_info    0x00000b53      0xccd ./Core/Src/periph_64ledmatrix.o
+ .debug_info    0x00001820      0xb25 ./Core/Src/stm32l4xx_hal_msp.o
+ .debug_info    0x00002345      0x36a ./Core/Src/stm32l4xx_it.o
+ .debug_info    0x000026af      0x5bf ./Core/Src/system_stm32l4xx.o
+ .debug_info    0x00002c6e       0x30 ./Core/Startup/startup_stm32l433cctx.o
+ .debug_info    0x00002c9e      0xa9f ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
+ .debug_info    0x0000373d      0xd27 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_cortex.o
+ .debug_info    0x00004464      0x6f4 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_dma.o
+ .debug_info    0x00004b58      0x757 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_gpio.o
+ .debug_info    0x000052af      0x920 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr_ex.o
+ .debug_info    0x00005bcf      0xbc3 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc.o
+ .debug_info    0x00006792     0x2a9a ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_tim.o
+ .debug_info    0x0000922c     0x169e ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_tim_ex.o
 
-.debug_abbrev   0x00000000     0x1cdb
+.debug_abbrev   0x00000000     0x1cda
  .debug_abbrev  0x00000000      0x120 ./Core/Src/intern_sysclock.o
  .debug_abbrev  0x00000120      0x234 ./Core/Src/main.o
- .debug_abbrev  0x00000354      0x21a ./Core/Src/periph_64ledmatrix.o
- .debug_abbrev  0x0000056e      0x1f5 ./Core/Src/stm32l4xx_hal_msp.o
- .debug_abbrev  0x00000763      0x16e ./Core/Src/stm32l4xx_it.o
- .debug_abbrev  0x000008d1      0x11a ./Core/Src/system_stm32l4xx.o
- .debug_abbrev  0x000009eb       0x24 ./Core/Startup/startup_stm32l433cctx.o
- .debug_abbrev  0x00000a0f      0x242 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
- .debug_abbrev  0x00000c51      0x31c ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_cortex.o
- .debug_abbrev  0x00000f6d      0x1e4 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_dma.o
- .debug_abbrev  0x00001151      0x1cb ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_gpio.o
- .debug_abbrev  0x0000131c      0x1f9 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr_ex.o
- .debug_abbrev  0x00001515      0x2cb ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc.o
- .debug_abbrev  0x000017e0      0x278 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_tim.o
- .debug_abbrev  0x00001a58      0x283 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_tim_ex.o
+ .debug_abbrev  0x00000354      0x219 ./Core/Src/periph_64ledmatrix.o
+ .debug_abbrev  0x0000056d      0x1f5 ./Core/Src/stm32l4xx_hal_msp.o
+ .debug_abbrev  0x00000762      0x16e ./Core/Src/stm32l4xx_it.o
+ .debug_abbrev  0x000008d0      0x11a ./Core/Src/system_stm32l4xx.o
+ .debug_abbrev  0x000009ea       0x24 ./Core/Startup/startup_stm32l433cctx.o
+ .debug_abbrev  0x00000a0e      0x242 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
+ .debug_abbrev  0x00000c50      0x31c ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_cortex.o
+ .debug_abbrev  0x00000f6c      0x1e4 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_dma.o
+ .debug_abbrev  0x00001150      0x1cb ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_gpio.o
+ .debug_abbrev  0x0000131b      0x1f9 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr_ex.o
+ .debug_abbrev  0x00001514      0x2cb ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc.o
+ .debug_abbrev  0x000017df      0x278 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_tim.o
+ .debug_abbrev  0x00001a57      0x283 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_tim_ex.o
 
 .debug_aranges  0x00000000      0xbe8
  .debug_aranges

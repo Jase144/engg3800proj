@@ -1,3 +1,9 @@
-../Core/Src/main.c:107:5:main	8	static
-../Core/Src/main.c:156:6:SystemClock_Config	96	static
-../Core/Src/main.c:204:6:Error_Handler	4	static,ignoring_inline_asm
+../Core/Src/main.c:67:6:myprintf	16	static
+../Core/Src/main.c:88:13:trim_crlf	24	static
+../Core/Src/main.c:97:12:ends_with_case	32	static
+../Core/Src/main.c:115:13:replace_ext	24	static
+../Core/Src/main.c:127:16:parse_tsq_header	752	static
+../Core/Src/main.c:182:16:parse_wav_info	704	static
+../Core/Src/main.c:279:5:main	1096	static
+../Core/Src/main.c:414:6:SystemClock_Config	96	static
+../Core/Src/main.c:468:6:Error_Handler	4	static,ignoring_inline_asm

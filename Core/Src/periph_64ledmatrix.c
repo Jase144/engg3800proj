@@ -54,6 +54,21 @@
 // CCR1 configs
 #define PINSET_PWM_CCR1_DIN 48 // ticks when output toggles - e.g. for PWM mode 1, at 48 ticks, it goes from high to low
 
+/* LED GRB HEX VALUES */
+#define VAL_COLOUR_GREENRGB_HEX 0xFF0000 // (255, 0, 0) in GRB
+#define VAL_COLOUR_REDRGB_HEX 0x00FF00 // (0, 255, 0) in GRB
+#define VAL_COLOUR_BLUERGB_HEX 0x0000FF // (0, 0, 255) in GRB
+#define VAL_COLOUR_YELLOWRGB_HEX 0xFFFF00 // (255, 255, 0) in GRB
+#define VAL_COLOUR_WHITERGB_HEX 0xFFFFFF // (255, 255, 255) in GRB
+
+/* LED Matrix Dimensions */
+#define VAL_RGBDIMENSION_LENGTH_INT 16
+#define VAL_RGBDIMENSION_WIDTH_INT 4
+#define VAL_RGBDIMENSION_NUMLEDS_INT (VAL_RGBDIMENSION_WIDTH_INT * VAL_RGBDIMENSION_LENGTH_INT)
+#define VAL_RGBDIMENSION_NUMCOLOURBITS_INT 8 // 8 colour bits
+#define VAL_RGBDIMENSION_NUMCOLOURS_INT 3 // 3 colours (GRB)
+#define VAL_RGBDIMENSION_NUMLEDBITS_INT (VAL_RGBDIMENSION_NUMCOLOURBITS_INT + VAL_RGBDIMENSION_NUMCOLOURS_INT)
+
 /* function decs */
 void reg_64ledmatrix_init_external(void);
 void reg_64ledmatrix_initgpio_internal(void);
@@ -62,7 +77,7 @@ void reg_64ledmatrix_inittim2_internal(void);
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 
 void ledmatrix64_lib_error_handler(void);
-
+uint8_t transferComplete = 0;
 
 void reg_64ledmatrix_init_external(void) {
 
@@ -103,7 +118,8 @@ TIM_HandleTypeDef tim2Struct;
 TIM_ClockConfigTypeDef sClockSourceConfig = {0};
 TIM_MasterConfigTypeDef sMasterConfig = {0};
 TIM_OC_InitTypeDef sConfigOC = {0};
-static uint32_t ccr1_values[24] = {7, 7, 7, 7, 7, 7, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 7, 7, 14, 7, 14, 14};
+static uint32_t pink_values[24] = {7, 7, 7, 7, 7, 7, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 7, 7, 14, 7, 7, 14, 14};
+static uint32_t ccr1_values[1536] = {0};
 void reg_64ledmatrix_inittim2_internal(void) {
 
     __HAL_RCC_DMA1_CLK_ENABLE();
@@ -159,10 +175,16 @@ DMA1_Channel1->CNDTR = 4;
 
 HAL_TIM_PWM_Start(&tim2Struct, TIM_CHANNEL_1);
 
+
+    for (uint16_t i = 0; i < 1536; i++) {
+        ccr1_values[i] = pink_values[i%24];
+    }
+
 HAL_DMA_Start(&hdma_tim2_up,
               (uint32_t)(ccr1_values),
               (uint32_t)&(TIM2->CCR1),
-              24);
+              1536);
+DMA1_Channel2->CCR |= (DMA_CCR_TCIE_Msk);
 __HAL_TIM_ENABLE_DMA(&tim2Struct, TIM_DMA_UPDATE);
 //TIM2->DIER |= (1 << TIM_DIER_UDE_Pos);
 
@@ -180,7 +202,34 @@ void ledmatrix64_lib_error_handler(void)
     /* USER CODE END ledmatrix64_lib_error_handler_Debug */
 }
 
-void reg_64ledmatrix_senddata() {
+void reg_64ledmatrix_senddata(uint8_t rgbMatrix) {
+    // check if dma is ready for the mem arr to be modified, by checking if
+    // transfer is complete and if the DMA is enabled
+    if (transferComplete && (DMA1_Channel2->CCR & (DMA_CCR_EN_Msk))) {
+        transferComplete = 0;
+        // turn off DMA transfers whilst changing mem arr
+        DMA1_Channel2->CCR &= ~(DMA_CCR_EN_Msk);
 
+        for (uint16_t i = 0; i < 1536; i++) {
+            ccr1_values[i] = 14;
+        }
+        //DMA1_Channel2->CCR |= (DMA_CCR_EN_Msk);
+/*
+        HAL_DMA_Start(&hdma_tim2_up,
+              (uint32_t)(ccr1_values),
+              (uint32_t)&(TIM2->CCR1),
+              1536);
+
+        __HAL_TIM_ENABLE_DMA(&tim2Struct, TIM_DMA_UPDATE);
+        */
+    }
+
+    /*
+    HAL_DMA_Start(&hdma_tim2_up,
+              (uint32_t)(ccr1_values),
+              (uint32_t)&(TIM2->CCR1),
+              1536);
+    __HAL_TIM_ENABLE_DMA(&tim2Struct, TIM_DMA_UPDATE);
+    */
 }
 

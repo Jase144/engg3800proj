@@ -24,9 +24,9 @@
 #include "periph_64ledmatrix.h"
 /* USER CODE END Includes */
 
-/* Private typedef -----------------------------------------------------------*/
+/* Private typedef ------
+ * -----------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -138,14 +138,18 @@ int main(void)
   //MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   reg_64ledmatrix_init_external();
+
+  reg_64ledmatrix_senddata(0);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
   while (1)
   {
     /* USER CODE END WHILE */
-
+    transferComplete = 1;
+    //reg_64ledmatrix_senddata(0);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -323,5 +327,9 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* User can add his own implementation to report the file name and line number,
      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
   /* USER CODE END 6 */
+}
+
+ISR(DMA1_Channel2_IRQn) {
+    transferComplete = 1;
 }
 #endif /* USE_FULL_ASSERT */

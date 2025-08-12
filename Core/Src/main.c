@@ -133,7 +133,8 @@ int main(void)
   reg_64ledmatrix_init_external();
 
   //transferComplete = 1;
-  //reg_64ledmatrix_senddata(0);
+  transferComplete = 1;
+  reg_64ledmatrix_senddata(0);
   /* USER CODE END 2 */
 
   /* Infinite loop */

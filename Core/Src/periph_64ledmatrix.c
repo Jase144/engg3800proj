@@ -6,7 +6,6 @@
 #include "periph_64ledmatrix.h"
 #include "stm32l4xx_hal_dma.h"
 #include "stm32l4xx_hal_rcc.h"
-#include "intern_tim2dma.h"
 #include "stm32l4xx_hal_tim.h"
 
 /* Configs  */
@@ -216,7 +215,7 @@ void reg_64ledmatrix_senddata(uint8_t rgbMatrix) {
         // turn off DMA transfers whilst changing mem arr
 
         for (uint16_t i = 0; i < 1536; i++) {
-            ccr1_values[i] = 0;
+            ccr1_values[i] = 14;
         }
         TIM2->CR1 |= (TIM_CR1_CEN_Msk);
 

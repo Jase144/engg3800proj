@@ -139,6 +139,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   reg_64ledmatrix_init_external();
 
+  //transferComplete = 1;
   reg_64ledmatrix_senddata(0);
   /* USER CODE END 2 */
 
@@ -148,7 +149,6 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    transferComplete = 1;
     //reg_64ledmatrix_senddata(0);
     /* USER CODE BEGIN 3 */
   }
@@ -271,7 +271,7 @@ static void MX_DMA_Init(void)
 
   /* DMA interrupt init */
   /* DMA1_Channel2_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA1_Channel2_IRQn, 0, 0);
+  HAL_NVIC_SetPriority(DMA1_Channel2_IRQn, 5, 5);
   HAL_NVIC_EnableIRQ(DMA1_Channel2_IRQn);
 
 }
@@ -328,8 +328,9 @@ void assert_failed(uint8_t *file, uint32_t line)
      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
   /* USER CODE END 6 */
 }
-
-ISR(DMA1_Channel2_IRQn) {
+/*
+void HAL_DMA_IRQHandler(void) {
+    HAL_NVIC_ClearPendingIRQ(DMA1_Channel2_IRQn)
     transferComplete = 1;
-}
+}*/
 #endif /* USE_FULL_ASSERT */

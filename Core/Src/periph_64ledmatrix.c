@@ -77,6 +77,7 @@ void reg_64ledmatrix_inittim2_internal(void);
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 
 void ledmatrix64_lib_error_handler(void);
+void* transfer_complete_callback(struct __DMA_HandleTypeDef* dma);
 uint8_t transferComplete = 0;
 
 void reg_64ledmatrix_init_external(void) {
@@ -119,7 +120,7 @@ TIM_ClockConfigTypeDef sClockSourceConfig = {0};
 TIM_MasterConfigTypeDef sMasterConfig = {0};
 TIM_OC_InitTypeDef sConfigOC = {0};
 static uint32_t pink_values[24] = {7, 7, 7, 7, 7, 7, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 7, 7, 14, 7, 7, 14, 14};
-static uint32_t ccr1_values[1536] = {0};
+uint32_t ccr1_values[1536] = {0};
 void reg_64ledmatrix_inittim2_internal(void) {
 
     __HAL_RCC_DMA1_CLK_ENABLE();
@@ -164,6 +165,8 @@ hdma_tim2_up.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
 hdma_tim2_up.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
 hdma_tim2_up.Init.Mode = DMA_NORMAL; // stop after last
 hdma_tim2_up.Init.Priority = DMA_PRIORITY_LOW;
+//hdma_tim2_up.XferCpltCallback = (*transfer_complete_callback)(struct __DMA_HandleTypeDef*);
+hdma_tim2_up.XferCpltCallback = (transfer_complete_callback)(&hdma_tim2_up);
 HAL_DMA_Init(&hdma_tim2_up);
 
 DMA1_CSELR->CSELR = (DMA1_CSELR->CSELR & ~(0xF << (DMA_CSELR_C2S_Pos))) | (4 << DMA_CSELR_C2S_Pos);
@@ -184,6 +187,7 @@ HAL_DMA_Start(&hdma_tim2_up,
               (uint32_t)(ccr1_values),
               (uint32_t)&(TIM2->CCR1),
               1536);
+DMA1_Channel2->CCR |= (DMA_CCR_TCIE_Msk);
 DMA1_Channel2->CCR |= (DMA_CCR_TCIE_Msk);
 __HAL_TIM_ENABLE_DMA(&tim2Struct, TIM_DMA_UPDATE);
 //TIM2->DIER |= (1 << TIM_DIER_UDE_Pos);
@@ -206,30 +210,21 @@ void reg_64ledmatrix_senddata(uint8_t rgbMatrix) {
     // check if dma is ready for the mem arr to be modified, by checking if
     // transfer is complete and if the DMA is enabled
     if (transferComplete && (DMA1_Channel2->CCR & (DMA_CCR_EN_Msk))) {
+        TIM2->CR1 &= ~(TIM_CR1_CEN_Msk);
+        TIM2->CNT = 0;
         transferComplete = 0;
         // turn off DMA transfers whilst changing mem arr
-        DMA1_Channel2->CCR &= ~(DMA_CCR_EN_Msk);
 
         for (uint16_t i = 0; i < 1536; i++) {
-            ccr1_values[i] = 14;
+            ccr1_values[i] = 0;
         }
-        //DMA1_Channel2->CCR |= (DMA_CCR_EN_Msk);
-/*
-        HAL_DMA_Start(&hdma_tim2_up,
-              (uint32_t)(ccr1_values),
-              (uint32_t)&(TIM2->CCR1),
-              1536);
+        TIM2->CR1 |= (TIM_CR1_CEN_Msk);
 
-        __HAL_TIM_ENABLE_DMA(&tim2Struct, TIM_DMA_UPDATE);
-        */
     }
 
-    /*
-    HAL_DMA_Start(&hdma_tim2_up,
-              (uint32_t)(ccr1_values),
-              (uint32_t)&(TIM2->CCR1),
-              1536);
-    __HAL_TIM_ENABLE_DMA(&tim2Struct, TIM_DMA_UPDATE);
-    */
 }
 
+void* transfer_complete_callback(struct __DMA_HandleTypeDef* dma) {
+    transferComplete = 1;
+
+}
